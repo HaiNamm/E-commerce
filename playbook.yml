@@ -1,0 +1,92 @@
+- name: ec2instance-playbook
+  hosts: host
+  become: yes
+  become_user: root
+  become_method: sudo
+  tasks:
+    - name: update
+      apt:
+        upgrade: yes
+        update_cache: yes
+        cache_valid_time: 86400
+    - name: Install required system packages
+      apt:
+        pkg:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+          - python3-pip
+          - virtualenv
+          - python3-setuptools
+        state: latest
+        update_cache: true
+    - name: Add Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker Repository
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu focal stable
+        state: present
+
+    - name: Update apt and install docker-ce
+      apt:
+        name: docker-ce
+        state: latest
+        update_cache: true
+
+    - name: Create a docker network
+      docker_network:
+        name: test
+    - name: Re-create a MySQL container
+      docker_container:
+        name: khalid-mysql
+        image: mysql:8.0
+        networks:
+          - name: test
+            aliases:
+              - test
+        env:
+          MYSQL_ROOT_PASSWORD: password123_DONG
+          MYSQL_DATABASE: db_example
+        detach: true
+        state: started
+        recreate: yes
+        exposed_ports:
+          - 3306
+        pull: true
+        comparisons:
+          image: strict
+    - name: Copy file with owner and permissions
+      ansible.builtin.copy:
+        src: ./script
+        dest: /home/ubuntu/script
+        owner: ubuntu
+        group: ubuntu
+    - name: SLEEP now !!!
+      shell: sleep 15 && sudo docker exec -i hhainam-mysql mysql --user=root --password=password123_DONG < script
+
+    - name: Re-create a FlutterFlow container
+      docker_container:
+        name: hhainam-flutterflow
+        image: hhainam/namnodejs
+        networks:
+          - name: test
+            aliases:
+              - test
+        state: started
+        recreate: yes
+        exposed_ports:
+          - 5000
+        detach: true
+        published_ports:
+          - 5000:5000
+        pull: true
+        comparisons:
+          image: strict
+    - name: Prune everything
+      community.docker.docker_prune:
+        containers: true
+        images: true
