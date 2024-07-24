@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "984148687140",
+    "project_id": "ff-enterprise-ecomm",
+    "storage_bucket": "ff-enterprise-ecomm.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:984148687140:android:7ab6c11c46a6640cd6dbb1",
+        "android_client_info": {
+          "package_name": "com.mycompany.ffenterpriseecomm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "984148687140-77tnaiebkp0cs1v982hhthjormr12rjg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZx2yPwLQo2mk31ZzGTC-POZWzfLYuwK4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "984148687140-77tnaiebkp0cs1v982hhthjormr12rjg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "984148687140-tnc3tgqad26tjninogl63a5d36lsmjr2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mycompany.ffenterpriseecomm"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
