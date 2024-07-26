@@ -9,6 +9,7 @@ At the *master* branch in github is used to set up CD (Continuous Delivery) syst
 
 ### The way of operation:
 - Server is set up using Terraform tool.
+- E-Commerce application built and pushed code to Github repo.
 - CI pipeline is set up so that every time a dev commits code on github, Jenkins will automatically pull the code.
 - After pulling the code, Jenkins will run the commands to build the image and push the image to DockerHub.
 - CD pipeline is set up in Jenkins using Ansible script and Docker to deploy the application.
